@@ -2,6 +2,8 @@ package com.example.mapper;
 
 import com.example.model.Order;
 
+import java.util.List;
+
 public interface OrderMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,8 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<Order> getByBuyer(long id);
+
+    List<Order> getByAd(long id);
 }

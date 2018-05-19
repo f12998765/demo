@@ -6,6 +6,8 @@ import com.example.service.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdServiceImpl implements AdService {
     @Autowired
@@ -32,5 +34,15 @@ public class AdServiceImpl implements AdService {
     public boolean del(long id) {
         int n=mapper.deleteByPrimaryKey(id);
         return n==1;
+    }
+
+    @Override
+    public List<Ad> getBySeller(long id) {
+        return mapper.getBySeller(id);
+    }
+
+    @Override
+    public List<Ad> getByType(long id) {
+        return mapper.getByType(id);
     }
 }

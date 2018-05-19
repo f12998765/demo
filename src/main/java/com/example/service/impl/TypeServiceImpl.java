@@ -6,6 +6,8 @@ import com.example.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TypeServiceImpl implements TypeService {
 
@@ -33,5 +35,11 @@ public class TypeServiceImpl implements TypeService {
     public boolean del(long id) {
         int n=mapper.deleteByPrimaryKey(id);
         return n==1;
+    }
+
+    @Override
+    public List<Type> getAll() {
+        List<Type> list = mapper.getAll();
+        return list;
     }
 }

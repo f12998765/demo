@@ -1,9 +1,12 @@
 package com.example.model;
 
+import java.util.List;
+
 public class Type {
     private Long id;
 
     private String type;
+    private List<Attr> attrs;
 
     public Type(Long id, String type) {
         this.id = id;
@@ -28,5 +31,13 @@ public class Type {
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    public List<Attr> getAttrs() {
+        return attrs;
+    }
+
+    public void setAttrs(List<Attr> attrs) {
+        this.attrs = attrs;
     }
 }

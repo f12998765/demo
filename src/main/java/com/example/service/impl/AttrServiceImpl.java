@@ -6,6 +6,8 @@ import com.example.service.AttrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AttrServiceImpl implements AttrService {
 
@@ -33,5 +35,10 @@ public class AttrServiceImpl implements AttrService {
     public boolean del(long id) {
         int n=mapper.deleteByPrimaryKey(id);
         return n==1;
+    }
+
+    @Override
+    public List<Attr> getByFK(long id) {
+        return mapper.selectByFK(id);
     }
 }
