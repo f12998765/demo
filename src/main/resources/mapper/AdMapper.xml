@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.AdMapper" >
+  <resultMap id="BaseResultMap" type="com.example.model.Ad" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_seller_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_type_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fk_seller_id, fk_type_id, name, price
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ad
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ad
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.model.Ad" >
+    insert into ad (id, fk_seller_id, fk_type_id, 
+      name, price)
+    values (#{id,jdbcType=BIGINT}, #{fkSellerId,jdbcType=BIGINT}, #{fkTypeId,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.model.Ad" >
+    insert into ad
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkSellerId != null" >
+        fk_seller_id,
+      </if>
+      <if test="fkTypeId != null" >
+        fk_type_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fkSellerId != null" >
+        #{fkSellerId,jdbcType=BIGINT},
+      </if>
+      <if test="fkTypeId != null" >
+        #{fkTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.model.Ad" >
+    update ad
+    <set >
+      <if test="fkSellerId != null" >
+        fk_seller_id = #{fkSellerId,jdbcType=BIGINT},
+      </if>
+      <if test="fkTypeId != null" >
+        fk_type_id = #{fkTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.model.Ad" >
+    update ad
+    set fk_seller_id = #{fkSellerId,jdbcType=BIGINT},
+      fk_type_id = #{fkTypeId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

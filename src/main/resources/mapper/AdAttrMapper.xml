@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.AdAttrMapper" >
+  <resultMap id="BaseResultMap" type="com.example.model.AdAttr" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="value" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fk_ad_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_attr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, value, fk_ad_id, fk_attr_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ad_attr
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ad_attr
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.model.AdAttr" >
+    insert into ad_attr (id, value, fk_ad_id, 
+      fk_attr_id)
+    values (#{id,jdbcType=BIGINT}, #{value,jdbcType=VARCHAR}, #{fkAdId,jdbcType=BIGINT}, 
+      #{fkAttrId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.model.AdAttr" >
+    insert into ad_attr
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="fkAdId != null" >
+        fk_ad_id,
+      </if>
+      <if test="fkAttrId != null" >
+        fk_attr_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="fkAdId != null" >
+        #{fkAdId,jdbcType=BIGINT},
+      </if>
+      <if test="fkAttrId != null" >
+        #{fkAttrId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.model.AdAttr" >
+    update ad_attr
+    <set >
+      <if test="value != null" >
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="fkAdId != null" >
+        fk_ad_id = #{fkAdId,jdbcType=BIGINT},
+      </if>
+      <if test="fkAttrId != null" >
+        fk_attr_id = #{fkAttrId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.model.AdAttr" >
+    update ad_attr
+    set value = #{value,jdbcType=VARCHAR},
+      fk_ad_id = #{fkAdId,jdbcType=BIGINT},
+      fk_attr_id = #{fkAttrId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
