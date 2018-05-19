@@ -33,4 +33,10 @@ public class SellerServiceImpl implements SellerService {
         int n = mapper.deleteByPrimaryKey(id);
         return  n==1;
     }
+
+    @Override
+    public Seller getByname(String name) {
+        Seller seller = mapper.selectByName(name);
+        return seller;
+    }
 }

@@ -34,4 +34,9 @@ public class BuyerServiceImpl implements BuyerService {
         int n=mapper.deleteByPrimaryKey(id);
         return n==1;
     }
+
+    @Override
+    public Buyer getByname(String name) {
+        return mapper.selectByName(name);
+    }
 }

@@ -13,8 +13,9 @@ public class Buyer {
         this.passwd = passwd;
     }
 
-    public Buyer() {
-        super();
+    public Buyer(String name, String passwd) {
+        this.name = name;
+        this.passwd = passwd;
     }
 
     public Long getId() {

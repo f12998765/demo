@@ -17,7 +17,13 @@
     from buyer
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="selectByName" resultType="com.example.model.Buyer">
+      select
+      <include refid="Base_Column_List" />
+      from buyer
+      where name = #{name}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from buyer
     where id = #{id,jdbcType=BIGINT}
   </delete>

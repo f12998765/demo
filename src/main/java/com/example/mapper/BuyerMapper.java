@@ -14,4 +14,6 @@ public interface BuyerMapper {
     int updateByPrimaryKeySelective(Buyer record);
 
     int updateByPrimaryKey(Buyer record);
+
+    Buyer selectByName(String name);
 }
