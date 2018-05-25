@@ -1,12 +1,12 @@
 package com.example.controller;
 
 import com.example.model.Ad;
+import com.example.model.AdAttr;
+import com.example.model.Img;
 import com.example.service.AdService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class AdController {
     private AdService adService;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public String addAd(Ad ad){
+    public String addAd(@RequestBody Ad ad){
         if(adService.add(ad))
             return "ok";
         else
@@ -26,7 +26,8 @@ public class AdController {
     }
 
     @RequestMapping(value = "/up",method = RequestMethod.POST)
-    public String upAd(Ad ad){
+    public String upAd(@RequestBody  Ad ad){
+        System.out.println(ad.toString());
         if(adService.up(ad))
             return "ok";
         else
@@ -42,17 +43,19 @@ public class AdController {
     }
 
     @RequestMapping("/get")
-    public Ad get(@Param("id") long id){
+    public Ad get(@RequestParam("id") long id){
         return adService.get(id);
     }
     @RequestMapping("/seller")
-    public List<Ad> getBySeller(@Param("id") long id){
+    public List<Ad> getBySeller(@RequestParam("id") long id){
         return adService.getBySeller(id);
     }
 
     @RequestMapping("/type")
-    public List<Ad> getByType(@Param("id") long id){
+    public List<Ad> getByType(@RequestParam("id") long id){
         return adService.getByType(id);
     }
 
+    @RequestMapping("/all")
+    public List<Ad> getAll(){return adService.getAll();}
 }

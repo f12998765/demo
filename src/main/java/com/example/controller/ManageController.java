@@ -26,7 +26,11 @@ public class ManageController {
         List<Type> list = typeService.getAll();
         return list;
     }
-
+    @GetMapping("/type/ad")
+    public List<Type> getAllAD(){
+        List<Type> list = typeService.getAllAd();
+        return list;
+    }
     @GetMapping("/attr/get")
     public List<Attr> getAttr(){
         return attrService.getByFK(1);

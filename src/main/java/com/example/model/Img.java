@@ -3,17 +3,14 @@ package com.example.model;
 public class Img {
     private Long id;
 
-    private Long tid;
-
     private String hash;
 
     private String url;
 
     private Long fkAdId;
 
-    public Img(Long id, Long tid, String hash, String url, Long fkAdId) {
+    public Img(Long id, String hash, String url, Long fkAdId) {
         this.id = id;
-        this.tid = tid;
         this.hash = hash;
         this.url = url;
         this.fkAdId = fkAdId;
@@ -29,14 +26,6 @@ public class Img {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getTid() {
-        return tid;
-    }
-
-    public void setTid(Long tid) {
-        this.tid = tid;
     }
 
     public String getHash() {

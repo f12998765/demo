@@ -20,4 +20,6 @@ public interface OrderMapper {
     List<Order> getByBuyer(long id);
 
     List<Order> getByAd(long id);
+
+    List<Order> getBySeller(long id);
 }

@@ -6,6 +6,8 @@ import com.example.service.AdAttrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdAttrServiceImpl implements AdAttrService {
 
@@ -33,5 +35,27 @@ public class AdAttrServiceImpl implements AdAttrService {
     public boolean del(long id) {
         int n=mapper.deleteByPrimaryKey(id);
         return n==1;
+    }
+
+
+    @Override
+    public int addAttrs(List<AdAttr> attrs) {
+        return mapper.insertAttrs(attrs);
+    }
+
+    @Override
+    public int delByAd(Long id) {
+        int n = mapper.deleteByAd(id);
+        return  n;
+    }
+
+    @Override
+    public int upByAd(List<AdAttr> attrs) {
+        int n=0;
+        for(AdAttr ad : attrs){
+            mapper.updateByAd(ad);
+            n++;
+        }
+        return n;
     }
 }

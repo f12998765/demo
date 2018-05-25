@@ -4,9 +4,7 @@ import com.example.model.Order;
 import com.example.service.OrderService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,14 +17,15 @@ public class OrderController {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public String add(Order order){
-        if(orderService.add(order))
-            return "ok";
-        else
-            return "error";
+        return "ok";
+//        if(orderService.add(order))
+//            return "ok";
+//        else
+//            return "error";
     }
 
     @RequestMapping(value = "/up",method = RequestMethod.POST)
-    public String up(Order order){
+    public String up(@RequestBody Order order){
         if(orderService.up(order))
             return "ok";
         else
@@ -34,7 +33,7 @@ public class OrderController {
     }
 
     @RequestMapping("/del")
-    public String del(@Param("id") long id){
+    public String del(@RequestParam("id") long id){
         if(orderService.del(id))
             return "ok";
         else
@@ -42,17 +41,22 @@ public class OrderController {
     }
 
     @RequestMapping("/get")
-    public Order get(@Param("id") long id){
+    public Order get(@RequestParam("id") long id){
         return orderService.get(id);
     }
 
     @RequestMapping("/buyer")
-    public List<Order> getByBuyer(@Param("id") long id){
+    public List<Order> getByBuyer(@RequestParam("id") long id){
         return orderService.getByBuyer(id);
     }
 
-    @RequestMapping("/order")
-    public List<Order> getByAd(@Param("id") long id){
+    @RequestMapping("/ad")
+    public List<Order> getByAd(@RequestParam("id") long id){
         return orderService.getByAd(id);
+    }
+
+    @RequestMapping("/seller")
+    public List<Order> getBySeller(@RequestParam("id") long id){
+        return orderService.getBySeller(id);
     }
 }

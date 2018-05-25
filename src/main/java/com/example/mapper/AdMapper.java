@@ -20,4 +20,6 @@ public interface AdMapper {
     List<Ad> getBySeller(long id);
 
     List<Ad> getByType(long id);
+
+    List<Ad> getAll();
 }

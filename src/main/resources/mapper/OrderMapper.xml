@@ -7,40 +7,61 @@
       <arg column="fk_buyer_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="fk_ad_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="fk_status_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="status" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
+  <resultMap id="BaseResultMap_Order" type="com.example.model.Order" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_buyer_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_ad_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+    <association property="buyer" column="fk_buyer_id" javaType="com.example.model.Buyer" select="com.example.mapper.BuyerMapper.selectByPrimaryKey"/>
+    <association property="ad" column="fk_ad_id" javaType="com.example.model.Ad" select="com.example.mapper.AdMapper.selectByPrimaryKey"/>
+  </resultMap>
+
   <sql id="Base_Column_List" >
-    id, fk_buyer_id, fk_ad_id, name, fk_status_id
+    id, fk_buyer_id, fk_ad_id, name, status
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap_Order" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from order
+    from `order`
     where id = #{id,jdbcType=BIGINT}
   </select>
-    <select id="getByBuyer" resultMap="BaseResultMap">
+    <select id="getByBuyer" resultMap="BaseResultMap_Order">
       select *
-      from order
+      from `order`
       where fk_buyer_id= #{id};
     </select>
   <select id="getByAd" resultMap="BaseResultMap">
     select *
-    from order
+    from `order`
     where fk_ad_id=#{id}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from order
+    <select id="getBySeller" resultMap="BaseResultMap_Order">
+      select `order`.*
+      from `order`
+      where `order`.fk_ad_id in (
+          select ad.id
+          from ad
+          where ad.fk_seller_id= #{id,jdbcType=BIGINT}
+          )
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `order`
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.example.model.Order" >
-    insert into order (id, fk_buyer_id, fk_ad_id, 
-      name, fk_status_id)
+    insert into `order` (id, fk_buyer_id, fk_ad_id,
+      name, status)
     values (#{id,jdbcType=BIGINT}, #{fkBuyerId,jdbcType=BIGINT}, #{fkAdId,jdbcType=BIGINT}, 
-      #{name,jdbcType=VARCHAR}, #{fkStatusId,jdbcType=BIGINT})
+      #{name,jdbcType=VARCHAR}, #{status,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.example.model.Order" >
-    insert into order
+    insert into `order`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -54,8 +75,8 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="fkStatusId != null" >
-        fk_status_id,
+      <if test="status != null" >
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -71,13 +92,13 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="fkStatusId != null" >
-        #{fkStatusId,jdbcType=BIGINT},
+      <if test="status != null" >
+        #{status,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.model.Order" >
-    update order
+    update `order`
     <set >
       <if test="fkBuyerId != null" >
         fk_buyer_id = #{fkBuyerId,jdbcType=BIGINT},
@@ -88,18 +109,18 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="fkStatusId != null" >
-        fk_status_id = #{fkStatusId,jdbcType=BIGINT},
+      <if test="status != null" >
+        status = #{status,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.model.Order" >
-    update order
+    update `order`
     set fk_buyer_id = #{fkBuyerId,jdbcType=BIGINT},
       fk_ad_id = #{fkAdId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
-      fk_status_id = #{fkStatusId,jdbcType=BIGINT}
+      status = #{status,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

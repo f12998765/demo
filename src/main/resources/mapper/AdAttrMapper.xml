@@ -9,6 +9,15 @@
       <arg column="fk_attr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
+  <resultMap id="BaseResultMapAd" type="com.example.model.AdAttr" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="value" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fk_ad_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_attr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+    <association property="attr" column="fk_attr_id" javaType="com.example.model.Attr" select="com.example.mapper.AttrMapper.selectByPrimaryKey"/>
+  </resultMap>
   <sql id="Base_Column_List" >
     id, value, fk_ad_id, fk_attr_id
   </sql>
@@ -18,9 +27,19 @@
     from ad_attr
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByAd" resultMap="BaseResultMapAd">
+    select
+    *
+    from ad_attr
+    where fk_ad_id = #{id,jdbcType=BIGINT}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from ad_attr
     where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByAd">
+    delete from ad_attr
+    where fk_ad_id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.example.model.AdAttr" >
     insert into ad_attr (id, value, fk_ad_id, 
@@ -59,7 +78,14 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.model.AdAttr" >
+    <insert id="insertAttrs">
+      insert into ad_attr(`value`,fk_ad_id,fk_attr_id)
+      values
+      <foreach collection="list" item="item" index="index" separator="," >
+      (#{item.value},#{item.fkAdId},#{item.fkAttrId})
+      </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.model.AdAttr" >
     update ad_attr
     <set >
       <if test="value != null" >
@@ -81,4 +107,9 @@
       fk_attr_id = #{fkAttrId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+    <update id="updateByAd">
+      update ad_attr
+      set value= #{value,jdbcType=VARCHAR}
+      where fk_ad_id = #{fkAdId,jdbcType=BIGINT} and fk_attr_id = #{fkAttrId,jdbcType=BIGINT}
+    </update>
 </mapper>

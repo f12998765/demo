@@ -42,4 +42,9 @@ public class TypeServiceImpl implements TypeService {
         List<Type> list = mapper.getAll();
         return list;
     }
+
+    @Override
+    public List<Type> getAllAd() {
+        return mapper.getAllAd();
+    }
 }

@@ -5,11 +5,15 @@
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="nickname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="icon" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="passwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mail" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tel" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, passwd
+    id, `name`,nickname,icon, passwd,mail,tel
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -19,18 +23,18 @@
   </select>
     <select id="selectByName" resultType="com.example.model.Buyer">
       select
-      <include refid="Base_Column_List" />
+      *
       from buyer
-      where name = #{name}
+      where `name` = #{name,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from buyer
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.example.model.Buyer" >
-    insert into buyer (id, name, passwd
+    insert into buyer (id, `name`, passwd ,mail,tel,nickname,icon
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},#{nickname,jdbcType=VARCHAR},#{icon,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.model.Buyer" >
@@ -40,10 +44,22 @@
         id,
       </if>
       <if test="name != null" >
-        name,
+        `name`,
       </if>
       <if test="passwd != null" >
         passwd,
+      </if>
+      <if test="mail != null" >
+        mail,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="icon != null" >
+        icon,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -56,24 +72,52 @@
       <if test="passwd != null" >
         #{passwd,jdbcType=VARCHAR},
       </if>
+      <if test="mail != null" >
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.model.Buyer" >
     update buyer
     <set >
       <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="passwd != null" >
         passwd = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null" >
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.model.Buyer" >
     update buyer
-    set name = #{name,jdbcType=VARCHAR},
-      passwd = #{passwd,jdbcType=VARCHAR}
+    set `name` = #{name,jdbcType=VARCHAR},
+      passwd = #{passwd,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

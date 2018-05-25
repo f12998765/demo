@@ -6,6 +6,8 @@ import com.example.service.ImgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ImgServiceImpl implements ImgService {
     @Autowired
@@ -32,5 +34,17 @@ public class ImgServiceImpl implements ImgService {
     public boolean del(long id) {
         int n=mapper.deleteByPrimaryKey(id);
         return n==1;
+    }
+
+
+    @Override
+    public int addImgs(List<Img> imgs) {
+        return mapper.insertImgs(imgs);
+    }
+
+    @Override
+    public int delByAd(Long id) {
+         int n = mapper.deleteByAd(id);
+         return n;
     }
 }

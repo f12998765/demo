@@ -2,6 +2,8 @@ package com.example.mapper;
 
 import com.example.model.Img;
 
+import java.util.List;
+
 public interface ImgMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,10 @@ public interface ImgMapper {
     int updateByPrimaryKeySelective(Img record);
 
     int updateByPrimaryKey(Img record);
+
+    int insertImgs(List<Img> imgs);
+
+    Img selectByAdId(Long id);
+
+    int deleteByAd(Long id);
 }

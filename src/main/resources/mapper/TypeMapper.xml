@@ -16,6 +16,14 @@
     <collection property="attrs" ofType="com.example.model.Attr"  column="id" select="com.example.mapper.AttrMapper.selectByFK"></collection>
   </resultMap>
 
+  <resultMap id="BaseResultMapAd" type="com.example.model.Type" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+    <collection property="ads" ofType="com.example.model.Ad"  column="id" select="com.example.mapper.AdMapper.getByType"></collection>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     id, type
   </sql>
@@ -28,6 +36,11 @@
     <select id="getAll" resultMap="BaseResultMap0">
       select
       <include refid="Base_Column_List" />
+      from type
+    </select>
+    <select id="getAllAd" resultMap="BaseResultMapAd">
+      select
+      *
       from type
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >

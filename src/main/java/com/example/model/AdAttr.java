@@ -9,11 +9,21 @@ public class AdAttr {
 
     private Long fkAttrId;
 
+    private Attr attr;
+
     public AdAttr(Long id, String value, Long fkAdId, Long fkAttrId) {
         this.id = id;
         this.value = value;
         this.fkAdId = fkAdId;
         this.fkAttrId = fkAttrId;
+    }
+
+    public Attr getAttr() {
+        return attr;
+    }
+
+    public void setAttr(Attr attr) {
+        this.attr = attr;
     }
 
     public AdAttr() {

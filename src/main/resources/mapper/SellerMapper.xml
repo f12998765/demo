@@ -5,21 +5,26 @@
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="nickname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="icon" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="passwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mail" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tel" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="info" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, passwd
+    id, name,passwd,mail,tel,info,nickname,icon
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from seller
     where id = #{id,jdbcType=BIGINT}
   </select>
-    <select id="selectByName" resultType="com.example.model.Seller">
+    <select id="selectByName" resultMap="BaseResultMap">
       select
-      <include refid="Base_Column_List" />
+      *
       from seller
       where name = #{name}
     </select>
@@ -29,9 +34,9 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.example.model.Seller" >
-    insert into seller (id, name, passwd
+    insert into seller (id, name, passwd ,mail,tel ,info ,nickname,icon
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},#{info,jdbcType=LONGVARCHAR},#{nickname,jdbcType=VARCHAR},#{icon,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.model.Seller" >
@@ -46,6 +51,21 @@
       <if test="passwd != null" >
         passwd,
       </if>
+      <if test="mail != null" >
+        mail,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -56,6 +76,21 @@
       </if>
       <if test="passwd != null" >
         #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null" >
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -68,13 +103,33 @@
       <if test="passwd != null" >
         passwd = #{passwd,jdbcType=VARCHAR},
       </if>
+      <if test="mail != null" >
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.model.Seller" >
     update seller
     set name = #{name,jdbcType=VARCHAR},
-      passwd = #{passwd,jdbcType=VARCHAR}
+      passwd = #{passwd,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      info = #{info,jdbcType=LONGVARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -1,12 +1,10 @@
 package com.example.controller;
 
 import com.example.model.Buyer;
+import com.example.model.Seller;
 import com.example.service.BuyerService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,25 +17,26 @@ public class BuyerController {
     private BuyerService service;
 
     @RequestMapping(value = "/sign_in",method = RequestMethod.POST)
-    public Map<String,String> sign_in(@Param("name") String name,@Param("passwd") String passwd){
-        Map<String,String> map = new HashMap<>();
+    public Map<String,Object> sign_in(@RequestParam("name") String name, @RequestParam("passwd") String passwd){
+        Map<String,Object> map = new HashMap<>();
         Buyer buyer = service.getByname(name);
         if(buyer==null) {
-            map.put("flag", "errer");
+            map.put("flag", "error");
             map.put("info","用户名不存在");
         }else {
             if (buyer.getPasswd().equals(passwd)){
                 map.put("flag","ok");
+                map.put("info",buyer);
             }else {
-                map.put("flag","errer");
-                map.put("inof","密码错误");
+                map.put("flag","error");
+                map.put("info","密码错误");
             }
         }
         return map;
     }
 
     @RequestMapping(value = "/sign_up",method = RequestMethod.POST)
-    public Map<String,String> sign_up(@Param("name") String name,@Param("passwd") String passwd){
+    public Map<String,String> sign_up(@RequestParam("name") String name,@RequestParam("passwd") String passwd){
         Map<String,String> map = new HashMap<>();
         Buyer buyer = service.getByname(name);
         if(buyer!=null){
@@ -53,5 +52,18 @@ public class BuyerController {
             }
         }
         return map;
+    }
+
+    @GetMapping(value = "/get")
+    public Buyer get(@RequestParam("id") Long id){
+        return service.get(id);
+    }
+
+    @RequestMapping(value = "/up",method = RequestMethod.POST)
+    public String up(@RequestBody Buyer buyer){
+        if(service.up(buyer))
+            return "ok";
+        else
+            return "error";
     }
 }

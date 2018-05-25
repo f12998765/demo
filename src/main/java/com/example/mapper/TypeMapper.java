@@ -18,4 +18,6 @@ public interface TypeMapper {
     int updateByPrimaryKey(Type record);
 
     List<Type> getAll();
+
+    List<Type> getAllAd();
 }

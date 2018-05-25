@@ -9,14 +9,61 @@ public class Order {
 
     private String name;
 
-    private Long fkStatusId;
+    private Ad ad;
 
-    public Order(Long id, Long fkBuyerId, Long fkAdId, String name, Long fkStatusId) {
+    private Long status;
+
+    private Buyer buyer;
+
+
+    public Order(Long fkBuyerId, Long fkAdId, String name, Long status) {
+        this.fkBuyerId = fkBuyerId;
+        this.fkAdId = fkAdId;
+        this.name = name;
+        this.status = status;
+    }
+
+    public Order(Long id, Long fkBuyerId, Long fkAdId, String name, Long status) {
         this.id = id;
         this.fkBuyerId = fkBuyerId;
         this.fkAdId = fkAdId;
         this.name = name;
-        this.fkStatusId = fkStatusId;
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", fkBuyerId=" + fkBuyerId +
+                ", fkAdId=" + fkAdId +
+                ", name='" + name + '\'' +
+                ", status=" + status +
+                '}';
+    }
+
+    public Buyer getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(Buyer buyer) {
+        this.buyer = buyer;
+    }
+
+    public Long getStatus() {
+        return status;
+    }
+
+    public void setStatus(Long status) {
+        this.status = status;
+    }
+
+    public Ad getAd() {
+        return ad;
+    }
+
+    public void setAd(Ad ad) {
+        this.ad = ad;
     }
 
     public Order() {
@@ -55,11 +102,4 @@ public class Order {
         this.name = name == null ? null : name.trim();
     }
 
-    public Long getFkStatusId() {
-        return fkStatusId;
-    }
-
-    public void setFkStatusId(Long fkStatusId) {
-        this.fkStatusId = fkStatusId;
-    }
 }

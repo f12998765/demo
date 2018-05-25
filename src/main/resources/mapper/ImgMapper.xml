@@ -4,14 +4,13 @@
   <resultMap id="BaseResultMap" type="com.example.model.Img" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="tid" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="hash" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="url" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="fk_ad_id" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, tid, hash, url, fk_ad_id
+    id, hash, url, fk_ad_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -19,24 +18,32 @@
     from img
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByAdId" resultType="com.example.model.Img">
+    select
+    <include refid="Base_Column_List" />
+    from img
+    where fk_ad_id = #{id,jdbcType=BIGINT}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from img
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.model.Img" >
-    insert into img (id, tid, hash, 
-      url, fk_ad_id)
-    values (#{id,jdbcType=BIGINT}, #{tid,jdbcType=BIGINT}, #{hash,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{fkAdId,jdbcType=BIGINT})
+    <delete id="deleteByAd">
+      delete from  img
+      where fk_ad_id= #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.example.model.Img" >
+    insert into img (id, hash, url, 
+      fk_ad_id)
+    values (#{id,jdbcType=BIGINT}, #{hash,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{fkAdId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.example.model.Img" >
     insert into img
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
-      </if>
-      <if test="tid != null" >
-        tid,
       </if>
       <if test="hash != null" >
         hash,
@@ -52,9 +59,6 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="tid != null" >
-        #{tid,jdbcType=BIGINT},
-      </if>
       <if test="hash != null" >
         #{hash,jdbcType=VARCHAR},
       </if>
@@ -66,12 +70,16 @@
       </if>
     </trim>
   </insert>
+  <insert id="insertImgs"  parameterType="java.util.List">
+    insert into img (hash, url,fk_ad_id)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (#{item.hash},#{item.url},#{item.fkAdId})
+    </foreach>
+  </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.model.Img" >
     update img
     <set >
-      <if test="tid != null" >
-        tid = #{tid,jdbcType=BIGINT},
-      </if>
       <if test="hash != null" >
         hash = #{hash,jdbcType=VARCHAR},
       </if>
@@ -86,8 +94,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.model.Img" >
     update img
-    set tid = #{tid,jdbcType=BIGINT},
-      hash = #{hash,jdbcType=VARCHAR},
+    set hash = #{hash,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       fk_ad_id = #{fkAdId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}

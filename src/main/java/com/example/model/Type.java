@@ -8,6 +8,8 @@ public class Type {
     private String type;
     private List<Attr> attrs;
 
+    private List<Ad> ads;
+
     public Type(Long id, String type) {
         this.id = id;
         this.type = type;
@@ -39,5 +41,13 @@ public class Type {
 
     public void setAttrs(List<Attr> attrs) {
         this.attrs = attrs;
+    }
+
+    public List<Ad> getAds() {
+        return ads;
+    }
+
+    public void setAds(List<Ad> ads) {
+        this.ads = ads;
     }
 }
