@@ -8,6 +8,14 @@
       <arg column="fk_type_id" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
+  <resultMap id="BaseResultMapKey" type="com.example.model.Attr" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="attr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fk_type_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+    <collection property="attrkeys" ofType="com.example.model.Attrkey"  column="id" select="com.example.mapper.AttrkeyMapper.selectByAttr"></collection>
+  </resultMap>
   <sql id="Base_Column_List" >
     id, attr, fk_type_id
   </sql>
@@ -17,7 +25,14 @@
     from attr
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <select id="selectByFK" resultMap="BaseResultMap">
+    select
+    id, attr, fk_type_id
+    from attr
+    where fk_type_id=#{fk_type_id}
+  </select>
+  <select id="selectByType" resultMap="BaseResultMapKey">
     select
     id, attr, fk_type_id
     from attr

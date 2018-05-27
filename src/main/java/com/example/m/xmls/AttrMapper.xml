@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.m.mapper.AttrMapper" >
+  <resultMap id="BaseResultMap" type="com.example.m.model.Attr" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="attr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fk_type_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, attr, fk_type_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from attr
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from attr
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.m.model.Attr" >
+    insert into attr (id, attr, fk_type_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{attr,jdbcType=VARCHAR}, #{fkTypeId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.m.model.Attr" >
+    insert into attr
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="attr != null" >
+        attr,
+      </if>
+      <if test="fkTypeId != null" >
+        fk_type_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="attr != null" >
+        #{attr,jdbcType=VARCHAR},
+      </if>
+      <if test="fkTypeId != null" >
+        #{fkTypeId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.m.model.Attr" >
+    update attr
+    <set >
+      <if test="attr != null" >
+        attr = #{attr,jdbcType=VARCHAR},
+      </if>
+      <if test="fkTypeId != null" >
+        fk_type_id = #{fkTypeId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.m.model.Attr" >
+    update attr
+    set attr = #{attr,jdbcType=VARCHAR},
+      fk_type_id = #{fkTypeId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

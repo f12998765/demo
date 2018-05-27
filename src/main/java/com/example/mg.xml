@@ -20,18 +20,18 @@
         </javaTypeResolver>
 
         <!-- !!!! Model Configurations !!!! -->
-        <javaModelGenerator targetPackage="com.example.m" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
+        <javaModelGenerator targetPackage="com.example.m.model" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- !!!! Mapper XML Configurations !!!! -->
-        <sqlMapGenerator targetPackage="com.example.m" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
+        <sqlMapGenerator targetPackage="com.example.m.xmls" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- !!!! Mapper Interface Configurations !!!! -->
-        <javaClientGenerator targetPackage="com.example.m" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.example.m.mapper" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
@@ -39,6 +39,39 @@
                enableUpdateByExample="false">
             <property name="constructorBased" value="true"/>
         </table>
+        <table tableName="ad_attr" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="constructorBased" value="true"/>
+        </table>
+        <table tableName="attr" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="constructorBased" value="true"/>
+        </table>
+        <table tableName="attrkey" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="constructorBased" value="true"/>
+        </table>
+        <table tableName="buyer" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                               enableUpdateByExample="false">
+        <property name="constructorBased" value="true"/>
+    </table>
+        <table tableName="seller" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="constructorBased" value="true"/>
+        </table>
+        <table tableName="type" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="constructorBased" value="true"/>
+        </table>
+        <table tableName="img" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="constructorBased" value="true"/>
+        </table>
+        <table tableName="order" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="constructorBased" value="true"/>
+        </table>
+
 
     </context>
 </generatorConfiguration>

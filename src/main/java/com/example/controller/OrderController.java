@@ -17,11 +17,11 @@ public class OrderController {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public String add(Order order){
-        return "ok";
-//        if(orderService.add(order))
-//            return "ok";
-//        else
-//            return "error";
+        System.out.println(order.toString());
+        if(orderService.add(order))
+            return "ok";
+        else
+            return "error";
     }
 
     @RequestMapping(value = "/up",method = RequestMethod.POST)
@@ -58,5 +58,11 @@ public class OrderController {
     @RequestMapping("/seller")
     public List<Order> getBySeller(@RequestParam("id") long id){
         return orderService.getBySeller(id);
+    }
+
+
+    @RequestMapping("/all")
+    public List<Order> getAll(){
+        return orderService.getAll();
     }
 }

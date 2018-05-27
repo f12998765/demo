@@ -18,4 +18,6 @@ public interface AttrMapper {
     int updateByPrimaryKey(Attr record);
 
     List<Attr> selectByFK(Long fk_type_id);
+
+    List<Attr> selectByType(Long fk_type_id);
 }

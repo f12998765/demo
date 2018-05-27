@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -36,14 +37,17 @@ public class BuyerController {
     }
 
     @RequestMapping(value = "/sign_up",method = RequestMethod.POST)
-    public Map<String,String> sign_up(@RequestParam("name") String name,@RequestParam("passwd") String passwd){
+    public Map<String,String> sign_up(@RequestParam("name") String name,@RequestParam("passwd") String passwd ,@RequestParam("nickname") String nickname){
         Map<String,String> map = new HashMap<>();
         Buyer buyer = service.getByname(name);
         if(buyer!=null){
             map.put("flag","error");
             map.put("info","用户名已存在");
         }else {
-            buyer = new Buyer(name,passwd);
+            buyer = new Buyer();
+            buyer.setName(name);
+            buyer.setPasswd(passwd);
+            buyer.setNickname(nickname);
             if(service.add(buyer)){
                 map.put("flag","ok");
             }else {
@@ -65,5 +69,15 @@ public class BuyerController {
             return "ok";
         else
             return "error";
+    }
+
+    @GetMapping("/all")
+    public List<Buyer> getall(){
+        return service.getAll();
+    }
+
+    @GetMapping("/del")
+    public String del(@RequestParam("id") Long id){
+        return service.delBuyer(id);
     }
 }

@@ -51,4 +51,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getBySeller(long id) {
         return mapper.getBySeller(id);
     }
+
+    @Override
+    public List<Order> getAll() {
+        return mapper.getAll();
+    }
 }

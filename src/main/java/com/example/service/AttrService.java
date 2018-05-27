@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AttrService extends CURDService<Attr> {
     List<Attr> getByFK(long id);
+
+    int addNum(Attr t);
 }

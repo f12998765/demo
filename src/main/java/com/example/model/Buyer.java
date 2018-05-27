@@ -7,96 +7,26 @@ public class Buyer {
 
     private String passwd;
 
-    private String mail;
-
-    private String tel;
-
     private String nickname;
 
     private String icon;
 
-    public Buyer(String name, String passwd) {
-        this.name = name;
-        this.passwd = passwd;
-    }
+    private String mail;
 
-    public Buyer(Long id, String name, String passwd) {
-        this.id = id;
-        this.name = name;
-        this.passwd = passwd;
-    }
+    private String tel;
 
-    public Buyer(Long id, String name, String passwd, String mail, String tel) {
-        this.id = id;
-        this.name = name;
-        this.passwd = passwd;
-        this.mail = mail;
-        this.tel = tel;
-    }
-
-    public Buyer(Long id, String name, String passwd, String nickname) {
+    public Buyer(Long id, String name, String passwd, String nickname, String icon, String mail, String tel) {
         this.id = id;
         this.name = name;
         this.passwd = passwd;
         this.nickname = nickname;
-    }
-
-    public Buyer(String name, String passwd, String nickname) {
-        this.name = name;
-        this.passwd = passwd;
-        this.nickname = nickname;
-    }
-
-    public Buyer(String name, String passwd, String mail, String tel) {
-        this.name = name;
-        this.passwd = passwd;
+        this.icon = icon;
         this.mail = mail;
         this.tel = tel;
     }
 
     public Buyer() {
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public Buyer(Long id, String name, String passwd, String mail, String tel, String nickname, String icon) {
-        this.id = id;
-        this.name = name;
-        this.passwd = passwd;
-        this.mail = mail;
-        this.tel = tel;
-        this.nickname = nickname;
-        this.icon = icon;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
+        super();
     }
 
     public Long getId() {
@@ -121,5 +51,37 @@ public class Buyer {
 
     public void setPasswd(String passwd) {
         this.passwd = passwd == null ? null : passwd.trim();
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon == null ? null : icon.trim();
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail == null ? null : mail.trim();
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel == null ? null : tel.trim();
     }
 }

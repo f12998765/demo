@@ -47,4 +47,14 @@ public class TypeServiceImpl implements TypeService {
     public List<Type> getAllAd() {
         return mapper.getAllAd();
     }
+
+    @Override
+    public Type getAttrKey(Long id) {
+        return  mapper.getAttrKey(id);
+    }
+
+    @Override
+    public int addNum(Type t) {
+        return mapper.insertSelective(t);
+    }
 }

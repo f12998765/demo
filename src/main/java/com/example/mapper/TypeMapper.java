@@ -20,4 +20,6 @@ public interface TypeMapper {
     List<Type> getAll();
 
     List<Type> getAllAd();
+
+    Type getAttrKey(Long id);
 }

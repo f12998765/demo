@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.m.mapper.AdMapper" >
+  <resultMap id="BaseResultMap" type="com.example.m.model.Ad" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_seller_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_type_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.m.model.Ad" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_seller_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_type_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="info" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fk_seller_id, fk_type_id, name, price
+  </sql>
+  <sql id="Blob_Column_List" >
+    info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ad
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ad
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.m.model.Ad" >
+    insert into ad (id, fk_seller_id, fk_type_id, 
+      name, price, info
+      )
+    values (#{id,jdbcType=BIGINT}, #{fkSellerId,jdbcType=BIGINT}, #{fkTypeId,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{info,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.m.model.Ad" >
+    insert into ad
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkSellerId != null" >
+        fk_seller_id,
+      </if>
+      <if test="fkTypeId != null" >
+        fk_type_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fkSellerId != null" >
+        #{fkSellerId,jdbcType=BIGINT},
+      </if>
+      <if test="fkTypeId != null" >
+        #{fkTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.m.model.Ad" >
+    update ad
+    <set >
+      <if test="fkSellerId != null" >
+        fk_seller_id = #{fkSellerId,jdbcType=BIGINT},
+      </if>
+      <if test="fkTypeId != null" >
+        fk_type_id = #{fkTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.m.model.Ad" >
+    update ad
+    set fk_seller_id = #{fkSellerId,jdbcType=BIGINT},
+      fk_type_id = #{fkTypeId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      info = #{info,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.m.model.Ad" >
+    update ad
+    set fk_seller_id = #{fkSellerId,jdbcType=BIGINT},
+      fk_type_id = #{fkTypeId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

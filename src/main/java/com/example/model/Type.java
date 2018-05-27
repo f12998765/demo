@@ -15,6 +15,14 @@ public class Type {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Type{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                '}';
+    }
+
     public Type() {
         super();
     }

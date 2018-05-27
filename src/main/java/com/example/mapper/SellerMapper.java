@@ -2,6 +2,8 @@ package com.example.mapper;
 
 import com.example.model.Seller;
 
+import java.util.List;
+
 public interface SellerMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -13,7 +15,11 @@ public interface SellerMapper {
 
     int updateByPrimaryKeySelective(Seller record);
 
+    int updateByPrimaryKeyWithBLOBs(Seller record);
+
     int updateByPrimaryKey(Seller record);
 
     Seller selectByName(String name);
+
+    List<Seller> selectAll();
 }

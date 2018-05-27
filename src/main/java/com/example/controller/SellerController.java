@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -14,6 +15,7 @@ import java.util.Map;
 public class SellerController {
     @Autowired
     private SellerService service;
+
 
     @RequestMapping(value = "/sign_in",method = RequestMethod.POST)
     public Map<String,Object> sign_in(@RequestParam("name")String name,@RequestParam("passwd") String passwd){
@@ -35,14 +37,17 @@ public class SellerController {
     }
 
     @RequestMapping(value = "/sign_up",method = RequestMethod.POST)
-    public Map<String,String> sign_up(@RequestParam("name") String name,@RequestParam("passwd") String passwd){
+    public Map<String,String> sign_up(@RequestParam("name") String name,@RequestParam("passwd") String passwd,@RequestParam("nickname") String nickname){
         Map<String,String> map = new HashMap<>();
         Seller seller = service.getByname(name);
         if(seller!=null){
             map.put("flag","error");
             map.put("info","用户名已存在");
         }else {
-            seller = new Seller(name,passwd);
+            seller = new Seller();
+            seller.setName(name);
+            seller.setPasswd(passwd);
+            seller.setNickname(nickname);
             if(service.add(seller)){
                 map.put("flag","ok");
             }else {
@@ -64,5 +69,15 @@ public class SellerController {
             return "ok";
         else
             return "error";
+    }
+
+    @GetMapping("/all")
+    public List<Seller> getAll(){
+        return service.getAll();
+    }
+
+    @GetMapping("/del")
+    public String del(@RequestParam("id") Long id){
+        return service.delSeller(id);
     }
 }

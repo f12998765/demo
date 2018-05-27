@@ -41,4 +41,9 @@ public class AttrServiceImpl implements AttrService {
     public List<Attr> getByFK(long id) {
         return mapper.selectByFK(id);
     }
+
+    @Override
+    public int addNum(Attr t) {
+        return mapper.insertSelective(t);
+    }
 }

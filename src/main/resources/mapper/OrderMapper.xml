@@ -50,6 +50,11 @@
           where ad.fk_seller_id= #{id,jdbcType=BIGINT}
           )
     </select>
+    <select id="getAll" resultMap="BaseResultMap_Order">
+      select
+      <include refid="Base_Column_List" />
+      from `order`
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from `order`
     where id = #{id,jdbcType=BIGINT}

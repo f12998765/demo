@@ -25,6 +25,18 @@
     <collection property="imgs" ofType="com.example.model.Img"  column="id" select="com.example.mapper.ImgMapper.selectByAdId"></collection>
     <collection property="attrs" ofType="com.example.model.AdAttr"  column="id" select="com.example.mapper.AdAttrMapper.selectByAd"></collection>
   </resultMap>
+  <resultMap id="BaseResultMapType" type="com.example.model.Ad" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_seller_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="fk_type_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="info" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+     <association property="type" column="fk_type_id" javaType="com.example.model.Type" select="com.example.mapper.TypeMapper.selectByPrimaryKey"/>
+    <collection property="imgs" ofType="com.example.model.Img"  column="id" select="com.example.mapper.ImgMapper.selectByAdId"></collection>
+  </resultMap>
   <sql id="Base_Column_List" >
     id, fk_seller_id, fk_type_id, name, price,info
   </sql>
@@ -34,7 +46,7 @@
     from ad
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="getBySeller" resultMap="BaseResultMap">
+  <select id="getBySeller" resultMap="BaseResultMapType">
     select *
     from ad
     where fk_seller_id=#{id}

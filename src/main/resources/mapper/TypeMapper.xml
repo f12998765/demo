@@ -16,6 +16,14 @@
     <collection property="attrs" ofType="com.example.model.Attr"  column="id" select="com.example.mapper.AttrMapper.selectByFK"></collection>
   </resultMap>
 
+  <resultMap id="BaseResultMapAttrKey" type="com.example.model.Type" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+    <collection property="attrs" ofType="com.example.model.Attr"  column="id" select="com.example.mapper.AttrMapper.selectByType"></collection>
+  </resultMap>
+
   <resultMap id="BaseResultMapAd" type="com.example.model.Type" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
@@ -33,7 +41,7 @@
     from type
     where id = #{id,jdbcType=BIGINT}
   </select>
-    <select id="getAll" resultMap="BaseResultMap0">
+    <select id="getAll" resultMap="BaseResultMapAttrKey">
       select
       <include refid="Base_Column_List" />
       from type
@@ -43,7 +51,13 @@
       *
       from type
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <select id="getAttrKey" resultMap="BaseResultMapAttrKey">
+    select
+    <include refid="Base_Column_List" />
+    from type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from type
     where id = #{id,jdbcType=BIGINT}
   </delete>

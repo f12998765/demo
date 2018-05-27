@@ -2,6 +2,8 @@ package com.example.mapper;
 
 import com.example.model.Buyer;
 
+import java.util.List;
+
 public interface BuyerMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,6 +16,8 @@ public interface BuyerMapper {
     int updateByPrimaryKeySelective(Buyer record);
 
     int updateByPrimaryKey(Buyer record);
+
+    List<Buyer> selectAll();
 
     Buyer selectByName(String name);
 }
